@@ -69,12 +69,13 @@ int produtor(int fd[2])
 	double step = 1;
         
 	printf("# x \t f(x) \n");
-	int contador, bytesEscritos;
+	int contador = 0;
+	int bytesEscritos;
 	while (1)
 	{
 		int value = x0 - 3;
-		FILE *teste = fopen("dados.txt", "a");
-		fprintf(teste, "%.3f \t %.3f \n", x0, 3*sin(value));
+		FILE *arq = fopen("dados.txt", "a");
+		fprintf(arq, "%.3f \t %.3f \n", x0, 3*sin(value));
 		printf("%.3f \t %.3f \n", x0, 3*sin(value));
 		contador++;
 		bytesEscritos = write(fd[WRITE], &contador, sizeof(int));
@@ -82,7 +83,7 @@ int produtor(int fd[2])
 		{
 			perror("ERRO NA ESCRITA");
 		}
-		fclose(teste);
+		fclose(arq);
 		x0 += step;
 		sleep(1);
 	}
